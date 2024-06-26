@@ -440,21 +440,21 @@ img {
         padding: 0 16px;
         z-index: 1000;
         box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        justify-content: center; 
     }
-
     .mobile-header h1 {
         margin: 0;
         font-size: 18px;
-        text-align: center; /* Center text */
+        text-align: center; 
     }
 
     .menu-toggle {
         display: block;
         width: 24px;
         height: 24px;
-        position: fixed;
-        top: 18px;
-        right: 16px;
+        position: absolute; /* Change from fixed to absolute */
+        right: 16px; /* Adjust positioning */
+        top: 18px; /* Adjust positioning */
         z-index: 1001;
         background: none;
         border: none;
