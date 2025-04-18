@@ -165,7 +165,7 @@ nav a.active {
     font-weight: 400;
     color: #666;
     display: block;       /* ensure it behaves like a block/paragraph */
-    margin-bottom: 0.8rem;/* or whatever spacing you want */
+    margin-bottom: 1.4rem;/* or whatever spacing you want */
 }
 
 .project-overlay h2 {
