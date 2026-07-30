@@ -70,15 +70,42 @@ body, html {
     box-sizing: border-box;
 }
 
-h1 {
-    font-family: var(--sans);
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    line-height: 1.3;
-    margin-bottom: 40px;
+.identity {
+    margin-bottom: 38px;
     margin-left: 5px;
-    text-wrap: balance;
+}
+
+.identity h1 {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 500;
+    letter-spacing: -0.014em;
+    line-height: 1.14;
+    margin: 0 0 14px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(0,0,0,0.16);
+}
+
+.identity h1 .given,
+.identity h1 .family {
+    display: block;
+}
+
+.identity h1 .star {
+    font-size: 0.62em;
+    vertical-align: 0.42em;
+    color: #9a9a9a;
+    margin-left: 1px;
+}
+
+.identity-line {
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.55;
+    letter-spacing: 0.015em;
+    color: #6a6a6a;
+    margin: 0;
 }
 
 nav {
@@ -111,6 +138,7 @@ nav a.active {
 }
 
 .project {
+    position: relative;
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.8s ease, transform 0.8s ease;
@@ -137,14 +165,18 @@ nav a.active {
     transform: scale(1.035);
 }
 
-/* Desktop: description reveals on hover. Below 768px this same node is
-   re-laid-out as static text, since :hover never fires on touch. */
+/* Desktop: description reveals on hover over the image. Below 768px this
+   same node becomes static copy under the card, since :hover never fires
+   on touch and nothing should be hidden behind a gesture. */
 .project-overlay {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    bottom: 0;
+    aspect-ratio: 16 / 9;
+    box-sizing: border-box;
+    border-radius: 8px;
+    pointer-events: none;
     background-color: rgba(0,0,0,0.82);
     color: #fff;
     display: flex;
@@ -156,9 +188,13 @@ nav a.active {
 }
 
 .project:hover .project-overlay,
-.project:focus-within .project-overlay,
-.project-image-container.revealed .project-overlay {
+.project:focus-within .project-overlay {
     opacity: 1;
+}
+
+/* The overlay sits over the image link, so only its own anchors take clicks. */
+.project-overlay a {
+    pointer-events: auto;
 }
 
 .project-overlay > * {
@@ -167,8 +203,7 @@ nav a.active {
 }
 
 .project:hover .project-overlay > *,
-.project:focus-within .project-overlay > *,
-.project-image-container.revealed .project-overlay > * {
+.project:focus-within .project-overlay > * {
     transform: translateY(0);
 }
 
@@ -518,8 +553,11 @@ img {
         justify-content: center; 
     }
     .mobile-header h1 {
+        font-family: var(--serif);
+        font-weight: 500;
+        letter-spacing: -0.01em;
         margin: 0;
-        font-size: 18px;
+        font-size: 19px;
         text-align: center; 
     }
 
@@ -622,23 +660,72 @@ img {
         box-sizing: border-box;
     }
 
+    /* :hover never fires on touch, so the overlay becomes static copy
+       under the image rather than something the reader has to discover. */
     .project-overlay {
-        padding: 20px;
+        position: static;
+        aspect-ratio: auto;
+        pointer-events: auto;
+        opacity: 1;
+        background-color: transparent;
+        color: inherit;
+        padding: 14px 0 0;
     }
 
-    .project-overlay .overlay-title {
-        font-size: 17px;
-        margin-bottom: 7px;
-    }
-
-    .project-overlay .role {
-        font-size: 11px;
-        margin-bottom: 9px;
+    .project-overlay > * {
+        transform: none;
     }
 
     .project-overlay .description {
-        font-size: 13px;
-        line-height: 1.5;
+        font-size: 15px;
+        line-height: 1.6;
+        color: #2a2a2a;
+        max-width: none;
+    }
+
+    .project-overlay .links a {
+        color: #1c5c58;
+        border-bottom-color: rgba(28,92,88,0.4);
+    }
+
+    .project-overlay .awards {
+        color: #6d5410;
+        margin-top: 12px;
+    }
+
+    .project-overlay .awards a {
+        color: #6d5410;
+        border-bottom-color: rgba(109,84,16,0.4);
+    }
+
+    .project-overlay .awards .sep {
+        color: #b8b8b8;
+    }
+
+    .project-image-container {
+        padding-top: 0;
+        overflow: visible;
+    }
+
+    .project-image-container > a,
+    .project-image-container > img,
+    .project-image-container > video {
+        display: block;
+        position: relative;
+        aspect-ratio: 16 / 9;
+    }
+
+    .project-image-container img,
+    .project-image-container video {
+        position: absolute;
+    }
+
+    .project:hover img, .project:hover video {
+        transform: none;
+    }
+
+    .identity h1 {
+        font-size: 24px;
     }
 
     .project-title {

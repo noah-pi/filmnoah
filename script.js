@@ -71,32 +71,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Touch devices get tap-to-reveal, since :hover never fires there.
-    // Only taps on the image are intercepted — links below the image stay
-    // directly tappable, which is what the old handler got wrong.
-    const isTouch = window.matchMedia('(hover: none)').matches;
-
-    if (isTouch) {
-        projects.forEach(project => {
-            const container = project.querySelector('.project-image-container');
-            if (!container) return;
-            container.addEventListener('click', function(e) {
-                if (!container.classList.contains('revealed')) {
-                    e.preventDefault();
-                    document.querySelectorAll('.project-image-container.revealed')
-                        .forEach(el => el.classList.remove('revealed'));
-                    container.classList.add('revealed');
-                }
-            });
-        });
-
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.project-image-container')) {
-                document.querySelectorAll('.project-image-container.revealed')
-                    .forEach(el => el.classList.remove('revealed'));
-            }
-        });
-    }
+    // No tap-to-reveal on touch: below 768px the overlay is laid out as
+    // static copy under the image, so there is nothing to reveal.
 
     // Only play video that is actually on screen. Six autoplaying loops were
     // decoding continuously whether or not they were visible.
