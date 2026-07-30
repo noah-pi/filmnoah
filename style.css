@@ -130,11 +130,11 @@ nav a.active {
     width: 100%;
     height: auto;
     display: block;
-    transition: transform 0.3s ease;
+    transition: transform 0.65s cubic-bezier(0.22, 0.8, 0.3, 1);
 }
 
 .project:hover img, .project:hover video {
-    transform: scale(1.05);
+    transform: scale(1.035);
 }
 
 /* Desktop: description reveals on hover. Below 768px this same node is
@@ -152,7 +152,7 @@ nav a.active {
     justify-content: center;
     padding: 8% 9%;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.4s cubic-bezier(0.22, 0.8, 0.3, 1);
 }
 
 .project:hover .project-overlay,
@@ -161,22 +161,15 @@ nav a.active {
     opacity: 1;
 }
 
-.project-overlay .overlay-title {
-    font-family: var(--serif);
-    font-size: 21px;
-    font-weight: 600;
-    line-height: 1.25;
-    margin: 0 0 10px;
-    color: #fff;
+.project-overlay > * {
+    transform: translateY(7px);
+    transition: transform 0.45s cubic-bezier(0.22, 0.8, 0.3, 1);
 }
 
-.project-overlay .role {
-    font-family: var(--sans);
-    font-size: 13px;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.72);
-    margin: 0 0 14px;
+.project:hover .project-overlay > *,
+.project:focus-within .project-overlay > *,
+.project-image-container.revealed .project-overlay > * {
+    transform: translateY(0);
 }
 
 .project-overlay .description {
@@ -185,6 +178,33 @@ nav a.active {
     color: #fff;
     margin: 0;
     max-width: 54ch;
+}
+
+.project-overlay .awards {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    margin: 14px 0 0;
+    color: rgba(255,255,255,0.85);
+}
+
+.project-overlay .awards a {
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    padding-bottom: 2px;
+}
+
+.project-overlay .awards a:hover {
+    color: #fff;
+    border-bottom-color: #fff;
+}
+
+.project-overlay .awards .sep {
+    border: 0;
+    color: rgba(255,255,255,0.4);
 }
 
 .project-overlay .links {
@@ -204,44 +224,44 @@ nav a.active {
 }
 
 .project-info {
-    margin-top: 16px;
+    margin-top: 18px;
     display: flex;
     flex-direction: column;
 }
 
-.project-publication {
+.project-meta {
     font-family: var(--sans);
     font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.11em;
+    font-weight: 600;
+    letter-spacing: 0.085em;
     text-transform: uppercase;
+    margin-bottom: 8px;
+    color: #6d6d6d;
+}
+
+.project-meta .org {
     color: #111;
-    margin-bottom: 7px;
+    font-weight: 700;
+}
+
+.project-meta .dot {
+    color: #b8b8b8;
+    margin: 0 4px;
 }
 
 .project-title {
     font-family: var(--serif);
-    font-size: 25px;
-    font-weight: 600;
+    font-size: 26px;
+    font-weight: 500;
     line-height: 1.22;
     letter-spacing: -0.011em;
-    margin: 0 0 6px;
-}
-
-.project-awards {
-    font-family: var(--sans);
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-    color: #6d5410;
-    margin-bottom: 5px;
+    margin: 0 0 7px;
 }
 
 .project-date {
     font-family: var(--sans);
     font-size: 13px;
-    color: #6a6a6a;
+    color: #7a7a7a;
 }
 
 a:focus-visible,
@@ -377,8 +397,8 @@ footer {
 
 .project, .blog-entry {
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
+    transform: translateY(14px);
+    transition: opacity 0.7s cubic-bezier(0.22, 0.8, 0.3, 1), transform 0.7s cubic-bezier(0.22, 0.8, 0.3, 1);
 }
 
 .project.visible, .blog-entry.visible {
@@ -623,5 +643,19 @@ img {
 
     .project-title {
         font-size: 21px;
+    }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .project, .blog-entry {
+        opacity: 1;
+        transform: none;
     }
 }

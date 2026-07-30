@@ -98,6 +98,26 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Only play video that is actually on screen. Six autoplaying loops were
+    // decoding continuously whether or not they were visible.
+    const videos = document.querySelectorAll('.project video');
+    videos.forEach(v => { v.pause(); v.preload = 'none'; });
+
+    const videoObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const v = entry.target;
+            if (entry.isIntersecting) {
+                if (v.preload !== 'auto') { v.preload = 'auto'; v.load(); }
+                const p = v.play();
+                if (p) p.catch(() => {});
+            } else {
+                v.pause();
+            }
+        });
+    }, { rootMargin: '200px 0px' });
+
+    videos.forEach(v => videoObserver.observe(v));
+
     // Intersection Observer for fade-in effect
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
