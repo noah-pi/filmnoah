@@ -71,37 +71,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Mobile double-tap feature
-    projects.forEach(project => {
-        const overlay = project.querySelector('.project-overlay');
-        const link = project.querySelector('a');
-        let isOverlayVisible = false;
-        
-        project.addEventListener('click', function(e) {
-            if (window.innerWidth <= 768) {
-                e.preventDefault();
-                if (!isOverlayVisible) {
-                    overlay.style.opacity = '1';
-                    isOverlayVisible = true;
-                } else {
-                    window.location.href = link.href;
-                }
-            }
-        });
-    });
-    
-    document.addEventListener('click', function(e) {
-        if (window.innerWidth <= 768 && !e.target.closest('.project')) {
-            projects.forEach(project => {
-                project.querySelector('.project-overlay').style.opacity = '0';
-                project.isOverlayVisible = false;
-            });
-        }
-    });
-    
-    document.getElementById('infinite-nature-video').addEventListener('click', function(event) {
-        window.location.href = 'https://cloud.google.com/transform/infinite-nature-gen-ai-biodiversity-demo-industry-applications';
-    });
+    // The mobile double-tap handler that used to live here has been removed.
+    // Descriptions are now permanently visible in .project-info rather than
+    // hidden behind a hover overlay, so intercepting the first tap only
+    // blocked every link on touch devices.
 
     // Intersection Observer for fade-in effect
     const observer = new IntersectionObserver((entries) => {

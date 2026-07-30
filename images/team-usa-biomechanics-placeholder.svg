@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-label="TEAM USA BIOMECHANICS — placeholder">
+  <defs>
+    <pattern id="h" width="16" height="16" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="16" height="16" fill="#e8e8e8"/>
+      <rect width="8" height="16" fill="#dedede"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#h)"/>
+  <rect x="1" y="1" width="1598" height="998" fill="none" stroke="#c9c9c9" stroke-width="2"/>
+  <text x="800" y="470" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="62" font-weight="700" letter-spacing="3" fill="#555">TEAM USA BIOMECHANICS</text>
+  <text x="800" y="540" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="34" fill="#8a8a8a">Milan Cortina 2026</text>
+  <text x="800" y="610" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="24" letter-spacing="4" fill="#a0a0a0">PLACEHOLDER — REPLACE WITH FINAL ASSET</text>
+</svg>
