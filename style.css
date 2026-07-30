@@ -22,7 +22,7 @@ body, html {
 }
 
 .sidebar {
-    width: 30%;
+    width: 300px;
     height: 100vh;
     padding: 20px 40px;
     box-sizing: border-box;
@@ -59,19 +59,19 @@ body, html {
 }
 
 .main-content {
-    width: calc(80% - 10px); 
-    height: 100vh;
-    padding: 20px;
-    overflow-y: auto;
-    margin-left: 30%;
-    margin-right: 30%;
-    margin-top: 15px;
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: 860px;
+    padding: 56px 48px 0;
+    margin-left: 300px;
+    margin-right: 0;
+    box-sizing: border-box;
 }
 
 h1 {
-    font-size: 2.5vwpx;
+    font-size: clamp(19px, 1.5vw, 25px);
     font-weight: 700;
-    letter-spacing: 2px;
+    letter-spacing: 0.06em;
     margin-bottom: 40px;
     margin-left: 5px;
 }
@@ -130,89 +130,96 @@ nav a.active {
     transform: scale(1.05);
 }
 
-/* Hover tint on the image only. All reading copy now lives in .project-info
-   so it is visible on touch devices, where :hover never fires. */
+/* Desktop: description reveals on hover. Below 768px this same node is
+   re-laid-out as static text, since :hover never fires on touch. */
 .project-overlay {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0,0,0,0.18);
+    background-color: rgba(0,0,0,0.82);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8% 9%;
     opacity: 0;
     transition: opacity 0.3s ease;
-    pointer-events: none;
 }
 
-.project:hover .project-overlay {
+.project:hover .project-overlay,
+.project:focus-within .project-overlay {
     opacity: 1;
 }
 
-.project-info {
-    margin-top: 14px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.project-title {
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 1.35;
-}
-
-.project-role {
+.project-overlay .role {
     font-size: 13px;
-    font-weight: 400;
-    color: #666;
-    font-style: italic;
-}
-
-.project-description {
-    font-size: 14px;
-    line-height: 1.65;
-    margin: 0;
-    max-width: 62ch;
-    color: #333;
-}
-
-.project-awards {
-    font-size: 11px;
-    font-weight: 700;
     letter-spacing: 0.09em;
     text-transform: uppercase;
-    color: #8a6d1f;
+    color: rgba(255,255,255,0.72);
+    margin: 0 0 14px;
 }
 
-.project-links {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 4px 8px;
+.project-overlay .description {
+    font-size: 15px;
+    line-height: 1.62;
+    color: #fff;
+    margin: 0;
+    max-width: 54ch;
+}
+
+.project-overlay .links {
+    margin: 16px 0 0;
     font-size: 13px;
 }
 
-.project-links a {
-    color: #1c5c58;
+.project-overlay .links a {
+    color: #fff;
     text-decoration: none;
-    border-bottom: 1px solid rgba(28,92,88,0.35);
-    padding-bottom: 1px;
-    transition: border-color 0.2s ease;
+    border-bottom: 1px solid rgba(255,255,255,0.45);
+    padding-bottom: 2px;
 }
 
-.project-links a:hover,
-.project-links a:focus-visible {
-    border-bottom-color: #1c5c58;
+.project-overlay .links a:hover {
+    border-bottom-color: #fff;
 }
 
-.project-links .sep {
-    color: #bbb;
+.project-info {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
 }
 
 .project-publication {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: #111;
+    margin-bottom: 7px;
+}
+
+.project-title {
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 1.22;
+    letter-spacing: -0.011em;
+    margin: 0 0 6px;
+}
+
+.project-awards {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: #6d5410;
+    margin-bottom: 5px;
+}
+
+.project-date {
     font-size: 13px;
-    font-weight: 400;
-    color: #888;
+    color: #6a6a6a;
 }
 
 a:focus-visible,
@@ -338,7 +345,7 @@ footer {
 }
 
 .project-title-link:visited {
-    color: #4B0082;  /* dark purple */
+    color: inherit;
 }
 
 .project-title-link:hover {
@@ -369,9 +376,8 @@ nav a, .menu-toggle, #scrollToTop {
     transition: all 0.3s ease;
 }
 
-h1, .project-title, .project-overlay h2 {
+h1 {
     font-family: 'Roboto', sans-serif;
-    font-weight: 700;
 }
 
 h2, .role, .description {
@@ -379,7 +385,7 @@ h2, .role, .description {
 }
 
 p, .project-publication {
-    font-weight: 300;
+    font-weight: 400;
 }
 
 /* Article Entry Styling */
@@ -437,7 +443,6 @@ p, .project-publication {
     line-height: 1.6;
     color: #040404;
     max-width: 800px;
-    margin-top: px;
     margin: 0 auto;
     font-family: 'Georgia', sans-serif;
     font-weight: 500; 
@@ -576,24 +581,50 @@ img {
         box-sizing: border-box;
     }
 
-    .project-info {
-        margin-top: 12px;
-        gap: 5px;
+    /* No :hover on touch, so the overlay becomes static copy under the image. */
+    .project-overlay {
+        position: static;
+        opacity: 1;
+        background-color: transparent;
+        color: inherit;
+        padding: 12px 0 0;
     }
 
-    .project-description {
-        font-size: 14px;
-        line-height: 1.6;
+    .project-overlay .role {
+        color: #6a6a6a;
+        margin-bottom: 8px;
     }
 
-    /* Separators dangle at line-wraps on narrow screens, so stack instead. */
-    .project-links {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 5px;
+    .project-overlay .description {
+        font-size: 15px;
+        color: #2a2a2a;
+        max-width: none;
     }
 
-    .project-links .sep {
-        display: none;
+    .project-overlay .links a {
+        color: #1c5c58;
+        border-bottom-color: rgba(28,92,88,0.4);
+    }
+
+    .project-image-container {
+        padding-top: 0;
+        overflow: visible;
+    }
+
+    .project-image-container > a,
+    .project-image-container > img,
+    .project-image-container > video {
+        display: block;
+        position: relative;
+        aspect-ratio: 16 / 9;
+    }
+
+    .project-image-container img,
+    .project-image-container video {
+        position: absolute;
+    }
+
+    .project-title {
+        font-size: 21px;
     }
 }
