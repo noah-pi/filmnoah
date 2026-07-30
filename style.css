@@ -12,15 +12,13 @@ body, html {
     color: var(--text-color);
     margin: 0;
     padding: 0;
-    height: 100%;
     width: 100%;
-    overflow-x: hidden;
+    max-width: 100%;
 }
 
 .container {
     display: flex;
     flex-direction: row;
-    height: 100%;
 }
 
 .sidebar {
@@ -101,11 +99,23 @@ body, html {
 .identity-line {
     font-family: var(--sans);
     font-size: 12px;
-    font-weight: 400;
+    font-weight: 500;
     line-height: 1.55;
     letter-spacing: 0.015em;
-    color: #6a6a6a;
+    color: #2e2e2e;
     margin: 0;
+}
+
+.identity-line .bar {
+    color: #c2c2c2;
+    margin: 0 3px;
+    font-weight: 400;
+}
+
+.identity-history {
+    margin-top: 8px;
+    font-weight: 400;
+    color: #7c7c7c;
 }
 
 nav {
@@ -121,7 +131,8 @@ nav a {
     font-size: 14px;
     margin-bottom: 15px;
     padding: 5px 10px;
-    transition: all 0.3s ease;
+    border-radius: 15px;
+    transition: background-color 0.25s ease, color 0.25s ease;
     width: fit-content;
 }
 
@@ -243,8 +254,20 @@ nav a.active {
 }
 
 .project-overlay .links {
-    margin: 16px 0 0;
-    font-size: 13px;
+    font-family: var(--sans);
+    margin: 18px 0 0;
+    font-size: 12px;
+    letter-spacing: 0.03em;
+}
+
+.project-overlay .links .primary {
+    font-weight: 600;
+}
+
+.project-overlay .links .sep {
+    border: 0;
+    color: rgba(255,255,255,0.4);
+    margin: 0 3px;
 }
 
 .project-overlay .links a {
@@ -344,7 +367,9 @@ footer {
 }
 
 #scrollToTop {
-    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(6px);
     position: fixed;
     bottom: 20px;
     right: 20px;
@@ -357,7 +382,15 @@ footer {
     padding: 15px;
     border-radius: 50%;
     font-size: 18px;
-    transition: background-color 0.3s;
+    line-height: 1;
+    transition: background-color 0.3s ease, opacity 0.3s ease,
+                transform 0.3s cubic-bezier(0.22, 0.8, 0.3, 1), visibility 0.3s;
+}
+
+#scrollToTop.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
 }
 
 #scrollToTop:hover {
@@ -448,10 +481,6 @@ body, html {
 nav a:hover {
     background-color: var(--accent-color);
     color: var(--text-color);
-}
-
-nav a, .menu-toggle, #scrollToTop {
-    transition: all 0.3s ease;
 }
 
 
@@ -733,6 +762,10 @@ img {
     }
 }
 
+
+html {
+    scroll-behavior: smooth;
+}
 
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
