@@ -36,26 +36,38 @@ body, html {
 
 .sidebar-footer {
     margin-top: auto;
-    padding-top: 20px;
+    padding-top: 24px;
+    font-family: var(--sans);
     font-size: 12px;
-    font-style: normal;
-    margin-bottom: 40px;
+    color: #8a8a8a;
+    margin-bottom: 36px;
 }
 
 .sidebar-footer p {
     margin: 0 0 10px;
 }
 
-.sidebar-footer .social-icons {
+
+.contact {
     display: flex;
-    gap: 10px;
-    margin-bottom: 10px;
+    flex-direction: column;
+    gap: 6px;
+    margin: 0 0 14px;
+    font-family: var(--sans);
+    font-size: 13px;
 }
 
-.sidebar-footer .icon {
-    width: 24px;
-    height: 24px;
-    display: block;
+.contact a {
+    color: #1c5c58;
+    text-decoration: none;
+    width: fit-content;
+    border-bottom: 1px solid rgba(28,92,88,0.3);
+    padding-bottom: 1px;
+    transition: border-color 0.2s ease;
+}
+
+.contact a:hover {
+    border-bottom-color: #1c5c58;
 }
 
 .main-content {
@@ -300,6 +312,13 @@ nav a.active {
 .project-meta .org {
     color: #111;
     font-weight: 700;
+}
+
+.project-meta .x {
+    text-transform: lowercase;
+    font-weight: 500;
+    color: #9a9a9a;
+    margin: 0 1px;
 }
 
 .project-meta .dot {
@@ -666,13 +685,15 @@ img {
     .main-content {
         width: 100%;
         margin-left: 0;
-        padding: 76px 16px 16px;
+        padding: 76px 20px 16px;
         box-sizing: border-box;
     }
 
     .projects {
-        gap: 20px;
-        padding: 0 15px;
+        /* One gutter, from .main-content. The old 15px here stacked on top of
+           it and left cards inset further than the footer. */
+        gap: 52px;
+        padding: 0;
     }
 
     h1 {
@@ -698,7 +719,7 @@ img {
         opacity: 1;
         background-color: transparent;
         color: inherit;
-        padding: 14px 0 0;
+        padding: 12px 0 0;
     }
 
     .project-overlay > * {
@@ -759,6 +780,17 @@ img {
 
     .project-title {
         font-size: 21px;
+    }
+
+    /* Org and role stack on narrow screens; inline, the separator dangles
+       at the end of the wrapped line. */
+    .project-meta .dot {
+        display: none;
+    }
+
+    .project-meta .role {
+        display: block;
+        margin-top: 2px;
     }
 }
 
