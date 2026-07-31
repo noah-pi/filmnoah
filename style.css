@@ -2,27 +2,27 @@
     --background-color: #ffffff;
     --text-color: #000000;
     --accent-color: #f0f0f0;
+    --serif: 'Newsreader', ui-serif, 'Iowan Old Style', Charter, Georgia, serif;
+    --sans: 'Archivo', ui-sans-serif, -apple-system, 'Segoe UI', system-ui, sans-serif;
 }
 
 body, html {
-    font-family: 'Roboto', sans-serif;
+    font-family: var(--serif);
     background-color: var(--background-color);
     color: var(--text-color);
     margin: 0;
     padding: 0;
-    height: 100%;
     width: 100%;
-    overflow-x: hidden;
+    max-width: 100%;
 }
 
 .container {
     display: flex;
     flex-direction: row;
-    height: 100%;
 }
 
 .sidebar {
-    width: 30%;
+    width: 300px;
     height: 100vh;
     padding: 20px 40px;
     box-sizing: border-box;
@@ -36,44 +36,98 @@ body, html {
 
 .sidebar-footer {
     margin-top: auto;
-    padding-top: 20px;
+    padding-top: 24px;
+    font-family: var(--sans);
     font-size: 12px;
-    font-style: normal;
-    margin-bottom: 40px;
+    color: #8a8a8a;
+    margin-bottom: 36px;
 }
 
 .sidebar-footer p {
     margin: 0 0 10px;
 }
 
-.sidebar-footer .social-icons {
+
+.contact {
     display: flex;
-    gap: 10px;
-    margin-bottom: 10px;
+    flex-direction: column;
+    gap: 6px;
+    margin: 0 0 14px;
+    font-family: var(--sans);
+    font-size: 13px;
 }
 
-.sidebar-footer .icon {
-    width: 24px;
-    height: 24px;
-    display: block;
+.contact a {
+    color: #1c5c58;
+    text-decoration: none;
+    width: fit-content;
+    border-bottom: 1px solid rgba(28,92,88,0.3);
+    padding-bottom: 1px;
+    transition: border-color 0.2s ease;
+}
+
+.contact a:hover {
+    border-bottom-color: #1c5c58;
 }
 
 .main-content {
-    width: calc(80% - 10px); 
-    height: 100vh;
-    padding: 20px;
-    overflow-y: auto;
-    margin-left: 30%;
-    margin-right: 30%;
-    margin-top: 15px;
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: 860px;
+    padding: 56px 48px 0;
+    margin-left: 300px;
+    margin-right: 0;
+    box-sizing: border-box;
 }
 
-h1 {
-    font-size: 2.5vwpx;
-    font-weight: 700;
-    letter-spacing: 2px;
-    margin-bottom: 40px;
+.identity {
+    margin-bottom: 38px;
     margin-left: 5px;
+}
+
+.identity h1 {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 500;
+    letter-spacing: -0.014em;
+    line-height: 1.14;
+    margin: 0 0 14px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(0,0,0,0.16);
+}
+
+.identity h1 .given,
+.identity h1 .family {
+    display: block;
+}
+
+.identity h1 .star {
+    font-size: 0.62em;
+    vertical-align: 0.42em;
+    color: #9a9a9a;
+    margin-left: 1px;
+}
+
+.identity-line {
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.55;
+    letter-spacing: 0.015em;
+    color: #2e2e2e;
+    margin: 0;
+}
+
+.identity-line .bar {
+    color: #c2c2c2;
+    margin: 0 3px;
+    font-weight: 400;
+}
+
+.identity-history {
+    margin-top: 8px;
+    font-weight: 400;
+    color: #7c7c7c;
 }
 
 nav {
@@ -81,13 +135,16 @@ nav {
 }
 
 nav a {
+    font-family: var(--sans);
+    letter-spacing: 0.07em;
     display: block;
     text-decoration: none;
     color: var(--text-color);
     font-size: 14px;
     margin-bottom: 15px;
     padding: 5px 10px;
-    transition: all 0.3s ease;
+    border-radius: 15px;
+    transition: background-color 0.25s ease, color 0.25s ease;
     width: fit-content;
 }
 
@@ -104,6 +161,7 @@ nav a.active {
 }
 
 .project {
+    position: relative;
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.8s ease, transform 0.8s ease;
@@ -123,73 +181,170 @@ nav a.active {
     width: 100%;
     height: auto;
     display: block;
-    transition: transform 0.3s ease;
+    transition: transform 0.65s cubic-bezier(0.22, 0.8, 0.3, 1);
 }
 
 .project:hover img, .project:hover video {
-    transform: scale(1.05);
+    transform: scale(1.035);
 }
 
+/* Desktop: description reveals on hover over the image. Below 768px this
+   same node becomes static copy under the card, since :hover never fires
+   on touch and nothing should be hidden behind a gesture. */
 .project-overlay {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    bottom: 0;
-    background-color: rgba(0,0,0,0.8);
-    color: white;
+    aspect-ratio: 16 / 9;
+    box-sizing: border-box;
+    border-radius: 8px;
+    pointer-events: none;
+    background-color: rgba(0,0,0,0.82);
+    color: #fff;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 35px;
+    padding: 8% 9%;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.4s cubic-bezier(0.22, 0.8, 0.3, 1);
 }
 
-.project:hover .project-overlay {
+.project:hover .project-overlay,
+.project:focus-within .project-overlay {
     opacity: 1;
 }
 
-.project-info {
-    margin-top: 10px;
+/* The overlay sits over the image link, so only its own anchors take clicks. */
+.project-overlay a {
+    pointer-events: auto;
 }
 
-.project-title {
-    font-size: 16px;
-    font-weight: 700;
-    margin-bottom: 5px;
+.project-overlay > * {
+    transform: translateY(7px);
+    transition: transform 0.45s cubic-bezier(0.22, 0.8, 0.3, 1);
 }
 
-.project-publication {
-    font-size: 14px;
-    font-weight: 400;
-    color: #666;
-}
-
-.project-overlay h2 {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 10px;
-    letter-spacing: 0.5px;
-    margin-left: 15px;
-    margin-right: 15px;
-}
-
-.project-overlay .role {
-    font-size: 14px;
-    font-weight: 400;
-    margin-bottom: 15px;
-    color: #ccc;
-    margin-left: 15px;
-    margin-right: 15px;
+.project:hover .project-overlay > *,
+.project:focus-within .project-overlay > * {
+    transform: translateY(0);
 }
 
 .project-overlay .description {
-    font-size: 12px;
-    line-height: 1.6;
+    font-size: 15px;
+    line-height: 1.62;
+    color: #fff;
     margin: 0;
-    margin-left: 15px;
-    margin-right: 15px;
+    max-width: 54ch;
+}
+
+.project-overlay .awards {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    margin: 14px 0 0;
+    color: rgba(255,255,255,0.85);
+}
+
+.project-overlay .awards a {
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    padding-bottom: 2px;
+}
+
+.project-overlay .awards a:hover {
+    color: #fff;
+    border-bottom-color: #fff;
+}
+
+.project-overlay .awards .sep {
+    border: 0;
+    color: rgba(255,255,255,0.4);
+}
+
+.project-overlay .links {
+    font-family: var(--sans);
+    margin: 18px 0 0;
+    font-size: 12px;
+    letter-spacing: 0.03em;
+}
+
+.project-overlay .links .primary {
+    font-weight: 600;
+}
+
+.project-overlay .links .sep {
+    border: 0;
+    color: rgba(255,255,255,0.4);
+    margin: 0 3px;
+}
+
+.project-overlay .links a {
+    color: #fff;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,255,255,0.45);
+    padding-bottom: 2px;
+}
+
+.project-overlay .links a:hover {
+    border-bottom-color: #fff;
+}
+
+.project-info {
+    margin-top: 18px;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-meta {
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.085em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    color: #6d6d6d;
+}
+
+.project-meta .org {
+    color: #111;
+    font-weight: 700;
+}
+
+.project-meta .x {
+    text-transform: lowercase;
+    font-weight: 500;
+    color: #9a9a9a;
+    margin: 0 1px;
+}
+
+.project-meta .dot {
+    color: #b8b8b8;
+    margin: 0 4px;
+}
+
+.project-title {
+    font-family: var(--serif);
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 1.22;
+    letter-spacing: -0.011em;
+    margin: 0 0 7px;
+}
+
+.project-date {
+    font-family: var(--sans);
+    font-size: 13px;
+    color: #7a7a7a;
+}
+
+a:focus-visible,
+button:focus-visible {
+    outline: 2px solid #1c5c58;
+    outline-offset: 3px;
 }
 
 .about-me {
@@ -217,6 +372,7 @@ nav a.active {
 }
 
 footer {
+    font-family: var(--sans);
     margin-top: 40px;
     font-size: 12px;
 }
@@ -230,7 +386,9 @@ footer {
 }
 
 #scrollToTop {
-    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(6px);
     position: fixed;
     bottom: 20px;
     right: 20px;
@@ -243,7 +401,15 @@ footer {
     padding: 15px;
     border-radius: 50%;
     font-size: 18px;
-    transition: background-color 0.3s;
+    line-height: 1;
+    transition: background-color 0.3s ease, opacity 0.3s ease,
+                transform 0.3s cubic-bezier(0.22, 0.8, 0.3, 1), visibility 0.3s;
+}
+
+#scrollToTop.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
 }
 
 #scrollToTop:hover {
@@ -309,7 +475,7 @@ footer {
 }
 
 .project-title-link:visited {
-    color: #4B0082;  /* dark purple */
+    color: inherit;
 }
 
 .project-title-link:hover {
@@ -318,8 +484,8 @@ footer {
 
 .project, .blog-entry {
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
+    transform: translateY(14px);
+    transition: opacity 0.7s cubic-bezier(0.22, 0.8, 0.3, 1), transform 0.7s cubic-bezier(0.22, 0.8, 0.3, 1);
 }
 
 .project.visible, .blog-entry.visible {
@@ -336,21 +502,14 @@ nav a:hover {
     color: var(--text-color);
 }
 
-nav a, .menu-toggle, #scrollToTop {
-    transition: all 0.3s ease;
-}
 
-h1, .project-title, .project-overlay h2 {
-    font-family: 'Roboto', sans-serif;
-    font-weight: 700;
-}
 
 h2, .role, .description {
     font-weight: 400;
 }
 
 p, .project-publication {
-    font-weight: 300;
+    font-weight: 400;
 }
 
 /* Article Entry Styling */
@@ -408,7 +567,6 @@ p, .project-publication {
     line-height: 1.6;
     color: #040404;
     max-width: 800px;
-    margin-top: px;
     margin: 0 auto;
     font-family: 'Georgia', sans-serif;
     font-weight: 500; 
@@ -443,8 +601,11 @@ img {
         justify-content: center; 
     }
     .mobile-header h1 {
+        font-family: var(--serif);
+        font-weight: 500;
+        letter-spacing: -0.01em;
         margin: 0;
-        font-size: 18px;
+        font-size: 19px;
         text-align: center; 
     }
 
@@ -524,13 +685,15 @@ img {
     .main-content {
         width: 100%;
         margin-left: 0;
-        padding: 76px 16px 16px;
+        padding: 76px 20px 16px;
         box-sizing: border-box;
     }
 
     .projects {
-        gap: 20px;
-        padding: 0 15px;
+        /* One gutter, from .main-content. The old 15px here stacked on top of
+           it and left cards inset further than the footer. */
+        gap: 52px;
+        padding: 0;
     }
 
     h1 {
@@ -547,21 +710,104 @@ img {
         box-sizing: border-box;
     }
 
+    /* :hover never fires on touch, so the overlay becomes static copy
+       under the image rather than something the reader has to discover. */
     .project-overlay {
-        padding: 15px;
+        position: static;
+        aspect-ratio: auto;
+        pointer-events: auto;
+        opacity: 1;
+        background-color: transparent;
+        color: inherit;
+        padding: 12px 0 0;
     }
 
-    .project-overlay h2 {
-        display: none;
-    }
-
-    .project-overlay .role, .project-overlay .description {
-        margin-left: 0;
-        margin-right: 0;
+    .project-overlay > * {
+        transform: none;
     }
 
     .project-overlay .description {
-        font-size: 12px;
-        line-height: 1.4;
+        font-size: 15px;
+        line-height: 1.6;
+        color: #2a2a2a;
+        max-width: none;
+    }
+
+    .project-overlay .links a {
+        color: #1c5c58;
+        border-bottom-color: rgba(28,92,88,0.4);
+    }
+
+    .project-overlay .awards {
+        color: #6d5410;
+        margin-top: 12px;
+    }
+
+    .project-overlay .awards a {
+        color: #6d5410;
+        border-bottom-color: rgba(109,84,16,0.4);
+    }
+
+    .project-overlay .awards .sep {
+        color: #b8b8b8;
+    }
+
+    .project-image-container {
+        padding-top: 0;
+        overflow: visible;
+    }
+
+    .project-image-container > a,
+    .project-image-container > img,
+    .project-image-container > video {
+        display: block;
+        position: relative;
+        aspect-ratio: 16 / 9;
+    }
+
+    .project-image-container img,
+    .project-image-container video {
+        position: absolute;
+    }
+
+    .project:hover img, .project:hover video {
+        transform: none;
+    }
+
+    .identity h1 {
+        font-size: 24px;
+    }
+
+    .project-title {
+        font-size: 21px;
+    }
+
+    /* Org and role stack on narrow screens; inline, the separator dangles
+       at the end of the wrapped line. */
+    .project-meta .dot {
+        display: none;
+    }
+
+    .project-meta .role {
+        display: block;
+        margin-top: 2px;
+    }
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .project, .blog-entry {
+        opacity: 1;
+        transform: none;
     }
 }

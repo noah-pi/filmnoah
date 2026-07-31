@@ -4,24 +4,42 @@ document.addEventListener('DOMContentLoaded', function() {
     const sidebar = document.querySelector('.sidebar');
     const scrollToTopButton = document.getElementById("scrollToTop");
 
-    function showProjects(category = 'all') {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function showProjects(category = 'all', animate = false) {
+        let shown = 0;
+
         projects.forEach(project => {
-            if (category === 'all' || project.dataset.categories.includes(category)) {
+            // Split rather than substring-match, so a category name can never
+            // accidentally match inside a longer one.
+            const cats = (project.dataset.categories || '').split(/\s+/);
+            const match = category === 'all' || cats.indexOf(category) !== -1;
+
+            if (match) {
                 project.style.display = 'block';
-                setTimeout(() => project.classList.add('visible'), 10);
+                if (animate && !reduceMotion) {
+                    project.classList.remove('visible');
+                    // Stagger the first few so the new set arrives as a sequence
+                    // rather than snapping in all at once.
+                    project.style.transitionDelay = Math.min(shown, 5) * 55 + 'ms';
+                    requestAnimationFrame(() => requestAnimationFrame(() => {
+                        project.classList.add('visible');
+                    }));
+                } else {
+                    project.style.transitionDelay = '';
+                    project.classList.add('visible');
+                }
+                shown++;
             } else {
                 project.style.display = 'none';
+                project.style.transitionDelay = '';
                 project.classList.remove('visible');
             }
         });
 
         // Handle about-me section separately
         const aboutMeSection = document.querySelector('.about-me');
-        if (category === 'about') {
-            aboutMeSection.style.display = 'block';
-        } else {
-            aboutMeSection.style.display = 'none';
-        }
+        aboutMeSection.style.display = category === 'about' ? 'block' : 'none';
     }
 
     showProjects();
@@ -34,16 +52,20 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('nav a').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
-            const category = e.target.dataset.category;
+            const category = link.dataset.category;
 
-            document.querySelectorAll('nav a').forEach(item => item.classList.remove('active'));
-            e.target.classList.add('active');
+            document.querySelectorAll('nav a').forEach(item => {
+                item.classList.remove('active');
+                item.removeAttribute('aria-current');
+            });
+            link.classList.add('active');
+            link.setAttribute('aria-current', 'true');
 
-            showProjects(category);
+            // A new category is a new page as far as the reader is concerned,
+            // so return to the top rather than leaving them mid-feed.
+            window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
 
-            if (category === 'about') {
-                document.querySelector('.about-me').scrollIntoView({ behavior: 'smooth' });
-            }
+            showProjects(category, true);
 
             if (window.innerWidth <= 768) {
                 sidebar.classList.remove('open');
@@ -52,13 +74,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    window.onscroll = function() {
-        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-            scrollToTopButton.style.display = "block";
-        } else {
-            scrollToTopButton.style.display = "none";
-        }
-    };
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+            const y = window.scrollY || document.documentElement.scrollTop;
+            scrollToTopButton.classList.toggle('is-visible', y > 400);
+            ticking = false;
+        });
+    }, { passive: true });
 
     scrollToTopButton.onclick = function() {
         window.scrollTo({top: 0, behavior: 'smooth'});
@@ -71,37 +96,28 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Mobile double-tap feature
-    projects.forEach(project => {
-        const overlay = project.querySelector('.project-overlay');
-        const link = project.querySelector('a');
-        let isOverlayVisible = false;
-        
-        project.addEventListener('click', function(e) {
-            if (window.innerWidth <= 768) {
-                e.preventDefault();
-                if (!isOverlayVisible) {
-                    overlay.style.opacity = '1';
-                    isOverlayVisible = true;
-                } else {
-                    window.location.href = link.href;
-                }
+    // No tap-to-reveal on touch: below 768px the overlay is laid out as
+    // static copy under the image, so there is nothing to reveal.
+
+    // Only play video that is actually on screen. Six autoplaying loops were
+    // decoding continuously whether or not they were visible.
+    const videos = document.querySelectorAll('.project video');
+    videos.forEach(v => { v.pause(); v.preload = 'none'; });
+
+    const videoObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const v = entry.target;
+            if (entry.isIntersecting) {
+                if (v.preload !== 'auto') { v.preload = 'auto'; v.load(); }
+                const p = v.play();
+                if (p) p.catch(() => {});
+            } else {
+                v.pause();
             }
         });
-    });
-    
-    document.addEventListener('click', function(e) {
-        if (window.innerWidth <= 768 && !e.target.closest('.project')) {
-            projects.forEach(project => {
-                project.querySelector('.project-overlay').style.opacity = '0';
-                project.isOverlayVisible = false;
-            });
-        }
-    });
-    
-    document.getElementById('infinite-nature-video').addEventListener('click', function(event) {
-        window.location.href = 'https://cloud.google.com/transform/infinite-nature-gen-ai-biodiversity-demo-industry-applications';
-    });
+    }, { rootMargin: '200px 0px' });
+
+    videos.forEach(v => videoObserver.observe(v));
 
     // Intersection Observer for fade-in effect
     const observer = new IntersectionObserver((entries) => {
