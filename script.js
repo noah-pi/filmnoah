@@ -37,20 +37,26 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Handle about-me section separately
+        // Handle about-me section separately (absent on the essay pages)
         const aboutMeSection = document.querySelector('.about-me');
-        aboutMeSection.style.display = category === 'about' ? 'block' : 'none';
+        if (aboutMeSection) {
+            aboutMeSection.style.display = category === 'about' ? 'block' : 'none';
+        }
     }
 
     showProjects();
 
-    menuToggle.addEventListener('click', () => {
-        sidebar.classList.toggle('open');
-        menuToggle.classList.toggle('open');
-    });
+    if (menuToggle && sidebar) {
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+            menuToggle.classList.toggle('open');
+        });
+    }
 
     document.querySelectorAll('nav a').forEach(link => {
         link.addEventListener('click', (e) => {
+            // Essay pages link back to index.html; only the feed intercepts.
+            if (!document.querySelector('.projects')) return;
             e.preventDefault();
             const category = link.dataset.category;
 
@@ -75,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     let ticking = false;
-    window.addEventListener('scroll', () => {
+    if (scrollToTopButton) window.addEventListener('scroll', () => {
         if (ticking) return;
         ticking = true;
         requestAnimationFrame(() => {
@@ -85,12 +91,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, { passive: true });
 
-    scrollToTopButton.onclick = function() {
+    if (scrollToTopButton) scrollToTopButton.onclick = function() {
         window.scrollTo({top: 0, behavior: 'smooth'});
     };
 
     window.addEventListener('resize', () => {
-        if (window.innerWidth > 768) {
+        if (window.innerWidth > 768 && sidebar && menuToggle) {
             sidebar.classList.remove('open');
             menuToggle.classList.remove('open');
         }

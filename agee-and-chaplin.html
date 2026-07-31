@@ -5,31 +5,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agee + Chaplin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+    <div class="mobile-header">
+        <h1>Noah Bassetti-Blum</h1>
+        <button class="menu-toggle" aria-label="Toggle Navigation">
+            <span></span>
+        </button>
+    </div>
+
     <div class="container">
         <div class="sidebar">
-            <h1>NOAH BASSETTI-BLUM*</h1>
+            <div class="identity">
+                <h1><span class="given">Noah</span><span class="family">Bassetti-Blum<span class="star">*</span></span></h1>
+                <p class="identity-line">Journalist <span class="bar">|</span> Writer <span class="bar">|</span> Information and Intelligence Designer</p>
+                <p class="identity-line identity-history">Currently Google. Previously The New York Times, Quartz, Bridgewater, McSweeney&rsquo;s.</p>
+            </div>
             <nav>
                 <a href="index.html?category=all" data-category="all">ALL WORK</a>
                 <a href="index.html?category=ai-product-design" data-category="ai-product-design">A.I. PRODUCT DESIGN</a>
                 <a href="index.html?category=graphical-journalism" data-category="graphical-journalism">GRAPHICAL JOURNALISM</a>
-                <a href="index.html?category=spatial-immersive" data-category="spatial-immersive">SPATIAL & IMMERSIVE</a>
+                <a href="index.html?category=spatial-immersive" data-category="spatial-immersive">SPATIAL &amp; IMMERSIVE</a>
                 <a href="index.html?category=data-visualization" data-category="data-visualization">DATA VISUALIZATION</a>
                 <a href="index.html?category=cinema-essays" data-category="cinema-essays" class="active">ESSAYS ON CINEMA</a>
                 <a href="index.html?category=about" data-category="about">ABOUT ME</a>
             </nav>
             <div class="sidebar-footer">
-                <div class="social-icons">
-                    <a href="mailto:noah.blum.pi@gmail.com" target="_blank">
-                        <img src="images/gmailicon.png" alt="Email" class="icon gmail-icon">
-                    </a>
-                    <a href="https://www.linkedin.com/in/noah-pisner/" target="_blank">
-                        <img src="images/linkedinicon.png" alt="LinkedIn" class="icon linkedin-icon">
-                    </a>
-                </div>
+                <p class="contact">
+                    <a href="mailto:noah.blum.pi@gmail.com">Email me</a>
+                    <a href="https://www.linkedin.com/in/noah-pisner/" target="_blank">LinkedIn</a>
+                </p>
                 <p><em>*Formerly Noah Pisner</em></p>
             </div>
         </div>
@@ -85,6 +95,7 @@
             </article>
         </div>
     </div>
+    <script src="script.js"></script>
 </body>
 
 </html>
