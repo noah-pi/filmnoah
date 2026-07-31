@@ -1,13 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-label="PRODUCT LAB — placeholder">
-  <defs>
-    <pattern id="h" width="16" height="16" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-      <rect width="16" height="16" fill="#e8e8e8"/>
-      <rect width="8" height="16" fill="#dedede"/>
-    </pattern>
-  </defs>
-  <rect width="1600" height="1000" fill="url(#h)"/>
-  <rect x="1" y="1" width="1598" height="998" fill="none" stroke="#c9c9c9" stroke-width="2"/>
-  <text x="800" y="470" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="62" font-weight="700" letter-spacing="3" fill="#555">PRODUCT LAB</text>
-  <text x="800" y="540" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="34" fill="#8a8a8a">Google Cloud Next '26</text>
-  <text x="800" y="610" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="24" letter-spacing="4" fill="#a0a0a0">PLACEHOLDER — REPLACE WITH FINAL ASSET</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Product Lab">
+  <rect width="1600" height="900" fill="#1a1c1f"/>
+  <rect x="0" y="0" width="1600" height="900" fill="none" stroke="#2a2d31" stroke-width="2"/>
+  <text x="800" y="432" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="66" fill="#f2f2f2">Product Lab</text>
+  <line x1="640" y1="486" x2="960" y2="486" stroke="#4a4d52" stroke-width="1"/>
+  <text x="800" y="536" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="24" letter-spacing="3" fill="#8d9197">Google Cloud Next ’26</text>
 </svg>
