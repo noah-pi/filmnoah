@@ -531,7 +531,9 @@ p, .project-publication {
 .article-entry header .profile-photo {
     width: 100%;
     max-width: 600px;
-    margin-bottom: 0px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
 }
 
 .article-entry header h1 {
