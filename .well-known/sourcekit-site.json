@@ -3,14 +3,14 @@
   "organization": "Noah Bassetti-Blum",
   "members": [
     {
-      "fingerprint": "6a164cb0893ba9d7df9e647e001b5371f1c75f21fb3cc2961af609e97992a87f",
-      "label": "This iPhone",
-      "publicKey": "BBUZKLEHcKWRnk46YbSKo8Qdaym6YHYR+pZmQnpdEdXSF6GMQK3LDqSKh648WlqoKZBO+TEgHmrIwUFSTuqzIW0="
-    },
-    {
       "fingerprint": "6dca6812d1b0004c0b6efbf567da7b477ec099ffae3ee3d59008fac32f9c1e6e",
       "label": "This iPhone",
       "publicKey": "BPKZrsLF0iDrNBcKQJp+aYyBztTV45Nt/4dujo1kwicv8KcguNoH/vc+cCJ9d8Bc1OsqDRq2ZX6PDDty2HTp/7E="
+    },
+    {
+      "fingerprint": "6a164cb0893ba9d7df9e647e001b5371f1c75f21fb3cc2961af609e97992a87f",
+      "label": "This iPhone",
+      "publicKey": "BBUZKLEHcKWRnk46YbSKo8Qdaym6YHYR+pZmQnpdEdXSF6GMQK3LDqSKh648WlqoKZBO+TEgHmrIwUFSTuqzIW0="
     }
   ]
 }
